@@ -1,0 +1,27 @@
+<h1><%= @board.title %></h1>
+
+<div class="row">
+
+  <%= for column <- @board.columns do %>
+  <div class="col-xs-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= column.title %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="column" data-column-id="<%= column.id %>">
+        &nbsp;
+          <%= for card <- column.cards do %>
+            <div data-card-id="<%= card.id %>" class="task alert alert-success" role="alert">
+              <button phx-click="delete_card" phx-value-card="<%= card.id %>" type="button" aria-label="Close" class="float-right" style="width:2px; height:20px;">X</button>
+              <textarea phx-blur="update_card" phx-value-card="<%= card.id %>"><%= card.content %></textarea>
+            </div>
+          <% end %>
+          <div>
+            <button phx-click="add_card" phx-value-column="<%= column.id %>">Add card</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
